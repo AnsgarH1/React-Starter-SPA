@@ -8,17 +8,17 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
-const DataflowComponentImport = new FileRoute('/dataflow').createRoute()
+const PageComponentImport = new FileRoute('/page').createRoute()
 const IndexComponentImport = new FileRoute('/').createRoute()
 
 // Create/Update Routes
 
-const DataflowComponentRoute = DataflowComponentImport.update({
-  path: '/dataflow',
+const PageComponentRoute = PageComponentImport.update({
+  path: '/page',
   getParentRoute: () => rootRoute,
 } as any).update({
   component: lazyRouteComponent(
-    () => import('./routes/dataflow.component'),
+    () => import('./routes/page.component'),
     'component',
   ),
 })
@@ -41,8 +41,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexComponentImport
       parentRoute: typeof rootRoute
     }
-    '/dataflow': {
-      preLoaderRoute: typeof DataflowComponentImport
+    '/page': {
+      preLoaderRoute: typeof PageComponentImport
       parentRoute: typeof rootRoute
     }
   }
@@ -52,5 +52,5 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexComponentRoute,
-  DataflowComponentRoute,
+  PageComponentRoute,
 ])
